@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: quantserve
+  namespace: quantserve
+spec:
+  rules:
+    - host: quantserve.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: quantserve-api
+                port:
+                  number: 8000

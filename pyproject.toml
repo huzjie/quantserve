@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quantserve"
+version = "0.1.0"
+description = "开源大模型本地化部署与量化推理平台（针对 Qwen3.8-2.4T-A95B / DeepSeek V4 Pro 等开放权重旗舰模型）"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "huzjie" }]
+keywords = ["llm", "quantization", "self-hosted", "vllm", "sglang", "moe", "open-weights", "llmops", "inference"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = []
+
+[project.optional-dependencies]
+api = ["fastapi>=0.110", "uvicorn>=0.29", "pydantic>=2.6"]
+yaml = ["pyyaml>=6.0"]
+all = ["fastapi>=0.110", "uvicorn>=0.29", "pydantic>=2.6", "pyyaml>=6.0"]
+
+[project.scripts]
+quantserve = "quantserve.cli.main:main"
+
+[tool.setuptools.packages.find]
+include = ["quantserve*"]

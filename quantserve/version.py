@@ -1,0 +1,5 @@
+# -*- coding: utf-8 -*-
+"""Version info."""
+
+__version__ = "0.1.0"
+__prog__ = "quantserve"

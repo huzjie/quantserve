@@ -1,0 +1,22 @@
+# QuantServe 完整配置示例
+home: ~/.quantserve
+models_dir: ~/.quantserve/models
+quantized_dir: ~/.quantserve/quantized
+cache_dir: ~/.quantserve/cache
+
+mirror: hf-mirror          # auto | hf-mirror | modelscope | huggingface
+max_concurrency: 4
+chunk_size_mb: 64
+verify_checksum: true
+default_engine: vllm
+
+api:
+  host: 127.0.0.1
+  port: 8000
+  auth_token: null
+
+pricing:
+  gpu_hour_usd: 2.0
+  power_kw: 0.5
+  electricity_usd_kwh: 0.12
+  amortize_months: 24

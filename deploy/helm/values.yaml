@@ -1,0 +1,33 @@
+replicaCount: 1
+
+image:
+  repository: huzjie/quantserve
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8000
+
+ingress:
+  enabled: false
+  host: quantserve.example.com
+
+storage:
+  size: 5000Gi
+  storageClass: ""
+
+resources:
+  requests:
+    memory: 512Mi
+    cpu: 250m
+  limits:
+    memory: 2Gi
+    cpu: "2"
+
+config:
+  mirror: hf-mirror
+  default_engine: vllm
+
+auth:
+  token: CHANGE_ME

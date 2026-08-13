@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      QUANTSERVE_MIRROR: "hf-mirror"
+    volumes:
+      - quant_models:/root/.quantserve/models
+      - quant_cache:/root/.quantserve/cache
+    restart: unless-stopped
+
+  # 可选：本地 Ollama 推理后端（CPU/GPU 通用）
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+
+volumes:
+  quant_models:
+  quant_cache:
+  ollama_data:

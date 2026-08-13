@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quantserve-api
+  namespace: quantserve
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quantserve-api
+  template:
+    metadata:
+      labels:
+        app: quantserve-api
+    spec:
+      containers:
+        - name: api
+          image: huzjie/quantserve:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: QUANTSERVE_MIRROR
+              value: hf-mirror
+          volumeMounts:
+            - name: models
+              mountPath: /root/.quantserve/models
+            - name: config
+              mountPath: /app/config.yaml
+              subPath: config.yaml
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "2Gi"
+              cpu: "2"
+      volumes:
+        - name: models
+          persistentVolumeClaim:
+            claimName: quantserve-models
+        - name: config
+          configMap:
+            name: quantserve-config

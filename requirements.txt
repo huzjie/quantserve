@@ -1,0 +1,7 @@
+# QuantServe 核心仅用 Python 标准库，零强制依赖。
+# 控制面 API（可选）：
+fastapi>=0.110
+uvicorn>=0.29
+pydantic>=2.6
+# YAML 配置（可选，缺失时自动回退到内置 mini-YAML）：
+pyyaml>=6.0

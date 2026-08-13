@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install
+        run: |
+          pip install -e ".[all]"
+          pip install pytest
+      - name: Smoke test (offline)
+        run: |
+          python -c "from quantserve.registry import get_registry; r=get_registry(); assert len(r.list())>0; print('models:', len(r.list()))"
+          python -c "from quantserve.quant.planner import QuantPlanner; p=QuantPlanner(); m=get_registry().get('qwen/qwen3.8-2.4t-a95b'); rs=p.plan_all(m); assert rs; print('quant methods:', len(rs))"
+          python -c "from quantserve.cost import CostCalculator; c=CostCalculator(); r=c.compare('deepseek/deepseek-v4-pro',100); print(r.to_dict())"
+      - name: Lint
+        run: |
+          pip install ruff
+          ruff check quantserve || true

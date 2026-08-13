@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "quantserve.fullname" . }}
+  labels:
+    {{- include "quantserve.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "quantserve.labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "quantserve.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: api
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8000
+          env:
+            - name: QUANTSERVE_MIRROR
+              value: {{ .Values.config.mirror | quote }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

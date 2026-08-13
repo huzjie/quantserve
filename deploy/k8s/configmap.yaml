@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: quantserve-config
+  namespace: quantserve
+data:
+  config.yaml: |
+    mirror: hf-mirror
+    default_engine: vllm
+    max_concurrency: 4
+    api:
+      host: 0.0.0.0
+      port: 8000

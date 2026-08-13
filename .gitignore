@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# node
+node_modules/
+web/dist/
+
+# runtime (repo-root weight dirs only; does NOT touch quantserve/models/ code)
+.quantserve/
+/models/
+/quantized/
+*.safetensors
+*.gguf
+*.bin
+
+# env (keep the example)
+.env
+/config.yaml
+
+# OS
+.DS_Store
+Thumbs.db
